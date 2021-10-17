@@ -1,0 +1,10 @@
+﻿  dna.c
+C:\Users\Clare\Documents\Github\cpsc259\lab2\CPSC259_Lab2_Takehome\CPSC259_Lab2_Takehome\dna.c(141,44): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Clare\Documents\Github\cpsc259\lab2\CPSC259_Lab2_Takehome\CPSC259_Lab2_Takehome\dna.c(144,40): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Clare\Documents\Github\cpsc259\lab2\CPSC259_Lab2_Takehome\CPSC259_Lab2_Takehome\dna.c(188,46): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Clare\Documents\Github\cpsc259\lab2\CPSC259_Lab2_Takehome\CPSC259_Lab2_Takehome\dna.c(191,42): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Clare\Documents\Github\cpsc259\lab2\CPSC259_Lab2_Takehome\CPSC259_Lab2_Takehome\dna.c(271,43): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Clare\Documents\Github\cpsc259\lab2\CPSC259_Lab2_Takehome\CPSC259_Lab2_Takehome\dna.c(276,57): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Clare\Documents\Github\cpsc259\lab2\CPSC259_Lab2_Takehome\CPSC259_Lab2_Takehome\dna.c(365,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Clare\Documents\Github\cpsc259\lab2\CPSC259_Lab2_Takehome\CPSC259_Lab2_Takehome\dna.c(366,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  CPSC259_Lab2_Takehome.vcxproj -> C:\Users\Clare\Documents\Github\cpsc259\lab2\CPSC259_Lab2_Takehome\x64\Debug\CPSC259_Lab2_Takehome.exe

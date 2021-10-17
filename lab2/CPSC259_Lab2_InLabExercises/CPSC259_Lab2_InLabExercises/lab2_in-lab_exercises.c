@@ -1,10 +1,6 @@
 /*
  File:				lab2_in-lab_exercises.c
  Purpose:			Implementation of functions for lab 2 in-lab exercises
- Author:			Clarence Adrian
- Student #s:		60595170 and 55317911
- CWLs:				ad2969 and Marcus Lim
- Date:				27 September, 2021
  */
 
 #include "lab2_in-lab_exercises.h"

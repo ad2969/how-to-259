@@ -1,10 +1,10 @@
 /*
  File:           quiz2-v6.c
  Purpose:	       CPSC259 In-lab quiz 2
- Author:         Clarence Adrian
- Student Number: 60595170
- CS Account:     ad2969
- Date:	      	 October 4, 2021
+ Author:         Your Name
+ Student Number: 12345678
+ CS Account:     a1a1
+ Date:	      	 Add the date here
 */
 
 /* Preprocessor directives */

@@ -1,0 +1,37 @@
+
+// 1. find out if any candidate is a perfect match
+for each candidate,
+
+	if (length not equal) continue; // use strlen and compare
+	if (entire sequence not equal) continue; // use strcmp
+
+	store the candidate number to output string (perfect match);
+	flag that perfect match has been found;
+
+
+
+// ---------------
+// 2. if no perfect matches have been found, calculate the score of each candidate
+for each candidate,
+	if(perfect match found) continue;
+
+	store candidate_length and sample_length; // use strlen
+	store number of codons in candidate and sample; // divide by CODON_LENGTH
+	
+	times to shift = num_candidate_codons - num_sample_codons
+
+	for each shift, // iterate i
+		reset local_score = 0;
+
+		for each codon, // iterate j (from CODON_LENGTH * i, up to num_sample_codons * CODON_LENGTH)
+			if (entire codon length is equal) add 10 local_score and break; // use strncomp with "n"
+			else if (they are the same amino acid) add 5 local_score and break;
+			else for each nucleotide,
+				if (the same string) add 2;
+				else if (base pairs) add 1;
+		
+		if (local_score beats current score) store local_store;
+		
+				
+
+		
