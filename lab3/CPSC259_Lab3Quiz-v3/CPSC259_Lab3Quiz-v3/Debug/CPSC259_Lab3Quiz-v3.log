@@ -1,0 +1,3 @@
+﻿  quiz3-v3.c
+C:\Users\Clare\Documents\Github\cpsc259\lab3\CPSC259_Lab3Quiz-v3\CPSC259_Lab3Quiz-v3\quiz3-v3.c(95,35): warning C4047: '=': 'char' differs in levels of indirection from 'void *'
+  CPSC259_Lab3Quiz-v3.vcxproj -> C:\Users\Clare\Documents\Github\cpsc259\lab3\CPSC259_Lab3Quiz-v3\Debug\CPSC259_Lab3Quiz-v3.exe
