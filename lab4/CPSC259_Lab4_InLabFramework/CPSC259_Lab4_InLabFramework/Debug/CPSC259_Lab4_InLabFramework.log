@@ -1,0 +1,3 @@
+﻿  recursion.c
+C:\Users\Clare\Documents\Github\cpsc259\lab4\CPSC259_Lab4_InLabFramework\CPSC259_Lab4_InLabFramework\recursion.c(134): warning C4715: 'draw_row': not all control paths return a value
+  CPSC259_Lab4_InLabFramework.vcxproj -> C:\Users\Clare\Documents\Github\cpsc259\lab4\CPSC259_Lab4_InLabFramework\Debug\CPSC259_Lab4_InLabFramework.exe
