@@ -42,6 +42,10 @@ void get_connectivity_matrix(FILE* filePointer, int* dimensions, double*** Conne
 	fseek(filePointer, 0, SEEK_SET);
 	while ((ch = fgetc(filePointer)) != EOF) {
 		if (ch == '\n') {
+			if (i != *dimensions) {
+				fprintf(stderr, "\nERROR: Row %i of provided matrix might be missing values\n", i-1);
+				exit(EXIT_FAILURE);
+			}
 			i = 0;
 			j++;
 		}
@@ -52,7 +56,7 @@ void get_connectivity_matrix(FILE* filePointer, int* dimensions, double*** Conne
 	}
 
 	if (j != *dimensions - 1) {
-		fprintf(stderr, "The provided matrix is not square (#rows = #columns)");
+		fprintf(stderr, "\nERROR: The provided matrix is not square (#rows = #columns)\n");
 		exit(EXIT_FAILURE);
 	}
 }
@@ -73,7 +77,7 @@ int main(void) {
 	printf("Loading file '%s'...\n", FILE_NAME);
 	error = fopen_s(&filePointer, FILE_NAME, "r");
 	if (error != 0) {
-		fprintf(stderr, "File %s cannot be loaded\n", FILE_NAME);
+		fprintf(stderr, "\nERROR: File %s cannot be loaded\n", FILE_NAME);
 		exit(EXIT_FAILURE);
 	}
 
@@ -84,71 +88,71 @@ int main(void) {
 
 	// connect to matlab engine
 	if (!(ep = engOpen(NULL))) {
-		fprintf(stderr, "\nCan't start MATLAB engine\n");
+		fprintf(stderr, "\nERROR: Can't start MATLAB engine\n");
 		exit(EXIT_FAILURE);
 	}
 	if (engOutputBuffer(ep, buffer, BUFSIZE)) {
-		fprintf(stderr, "\nCan't create buffer for MATLAB output\n");
+		fprintf(stderr, "\nERROR: Can't create buffer for MATLAB output\n");
 		exit(EXIT_FAILURE);
 	}
 
 	// save variables to matlab
 	if (engPutVariable(ep, "ConnectivityMatrix", ConnectivityMatrix)) {
-		fprintf(stderr, "\nCannot write connectivity matrix to MATLAB\n");
+		fprintf(stderr, "\nERROR: Cannot write connectivity matrix to MATLAB\n");
 		exit(EXIT_FAILURE);
 	}
 	mxArray* MXDimensions = mxCreateDoubleScalar(dimensions);
 	if (engPutVariable(ep, "dimension", MXDimensions)) {
-		fprintf(stderr, "\nCannot write dimension variable to MATLAB\n");
+		fprintf(stderr, "\nERROR: Cannot write dimension variable to MATLAB\n");
 		exit(EXIT_FAILURE);
 	}
 	mxArray* MXPF = mxCreateDoubleScalar(PROBABILITY_FACTOR);
 	if (engPutVariable(ep, "pf", MXPF)) {
-		fprintf(stderr, "\nCannot write pf variable to MATLAB\n");
+		fprintf(stderr, "\nERROR: Cannot write pf variable to MATLAB\n");
 		exit(EXIT_FAILURE);
 	}
 
 	// do the matlab calculations
 	if (engEvalString(ep, "columnsums = sum(ConnectivityMatrix, 1); zerocolumns = find(columnsums ~= 0);")) {
-		fprintf(stderr, "\nError getting connectivity matrix parameters\n");
+		fprintf(stderr, "\nMATLAB_ERROR: Error getting connectivity matrix parameters\n");
 		exit(EXIT_FAILURE);
 	}
 	if (engEvalString(ep, "D = sparse(zerocolumns, zerocolumns, 1./columnsums(zerocolumns), dimension, dimension);")) {
-		fprintf(stderr, "\nError creating sparse matrix\n");
+		fprintf(stderr, "\nMATLAB_ERROR: Error creating sparse matrix\n");
 		exit(EXIT_FAILURE);
 	}
 	if (engEvalString(ep, "StochasticMatrix = ConnectivityMatrix * D;")) {
-		fprintf(stderr, "\nError calculating stochastic matrix\n");
+		fprintf(stderr, "\nMATLAB_ERROR: Error calculating stochastic matrix\n");
 		exit(EXIT_FAILURE);
 	}
 	if (engEvalString(ep, "[row, column] = find(columnsums == 0); StochasticMatrix(:, column) = 1./dimension;")) {
-		fprintf(stderr, "\nError filling stochastic matrix\n");
+		fprintf(stderr, "\nMATLAB_ERROR: Error filling stochastic matrix\n");
 		exit(EXIT_FAILURE);
 	}
 	if (engEvalString(ep, "Q = ones(dimension, dimension);")) {
-		fprintf(stderr, "\nError creating scaling matrix\n");
+		fprintf(stderr, "\nMATLAB_ERROR: Error creating scaling matrix\n");
 		exit(EXIT_FAILURE);
 	}
 	if (engEvalString(ep, "TransitionMatrix = pf * StochasticMatrix + (1 - pf) * (Q/dimension);")) {
-		fprintf(stderr, "\nError calculating transition matrix\n");
+		fprintf(stderr, "\nMATLAB_ERROR: Error calculating transition matrix\n");
 		exit(EXIT_FAILURE);
 	}
 	if (engEvalString(ep, "PageRank = ones(dimension, 1);")) {
-		fprintf(stderr, "\nError initializing pagerank\n");
+		fprintf(stderr, "\nMATLAB_ERROR: Error initializing pagerank\n");
 		exit(EXIT_FAILURE);
 	}
 	if (engEvalString(ep, "for i = 1:100 PageRank = TransitionMatrix * PageRank; end")) {
-		fprintf(stderr, "\nError calculating pagerank\n");
+		fprintf(stderr, "\nMATLAB_ERROR: Error calculating pagerank\n");
 		exit(EXIT_FAILURE);
 	}
 	if (engEvalString(ep, "PageRank = PageRank / sum(PageRank)")) {
-		fprintf(stderr, "\nError normalizing pagerank\n");
+		fprintf(stderr, "\nMATLAB_ERROR: Error normalizing pagerank\n");
 		exit(EXIT_FAILURE);
 	}
 
 	// get matlab results
 	if ((PageRank = engGetVariable(ep, "PageRank")) == NULL) {
-		fprintf(stderr, "\nFailed to retrieve result matrix\n");
+		fprintf(stderr, "\nERROR: Failed to retrieve result pagerank matrix\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -164,7 +168,7 @@ int main(void) {
 	mxDestroyArray(PageRank);
 
 	if (engClose(ep)) {
-		fprintf(stderr, "\nFailed to close MATLAB engine\n");
+		fprintf(stderr, "\nERROR: Failed to close MATLAB engine\n");
 	}
 
 	system("PAUSE");
