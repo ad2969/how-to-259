@@ -1,2 +1,7 @@
 ﻿  pagerank.c
+C:\Users\Clare\Documents\Github\cpsc259\lab5\CPSC259_Lab5_Project\CPSC259_Lab5\pagerank.c(39,78): warning C4047: '=': 'double **' differs in levels of indirection from 'mxArray *'
+C:\Users\Clare\Documents\Github\cpsc259\lab5\CPSC259_Lab5_Project\CPSC259_Lab5\pagerank.c(49,31): warning C4047: 'function': 'const mxArray *' differs in levels of indirection from 'double **'
+C:\Users\Clare\Documents\Github\cpsc259\lab5\CPSC259_Lab5_Project\CPSC259_Lab5\pagerank.c(49,12): warning C4024: 'mxGetPr_800': different types for formal and actual parameter 1
+C:\Users\Clare\Documents\Github\cpsc259\lab5\CPSC259_Lab5_Project\CPSC259_Lab5\pagerank.c(81,71): warning C4047: 'function': 'double ***' differs in levels of indirection from 'mxArray **'
+C:\Users\Clare\Documents\Github\cpsc259\lab5\CPSC259_Lab5_Project\CPSC259_Lab5\pagerank.c(81,52): warning C4024: 'get_connectivity_matrix': different types for formal and actual parameter 3
   CPSC259_Lab5.vcxproj -> C:\Users\Clare\Documents\Github\cpsc259\lab5\CPSC259_Lab5_Project\x64\Debug\CPSC259_Lab5.exe
